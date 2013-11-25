@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Particle System</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Dr. Nick's HTML 5 Particle System">
+    <meta name="author" content="Dr. Nick">
+    <script type="text/javascript"
+            src="./js/Vector.js"></script>
+    <script type="text/javascript"
+            src="./js/Geometry.js"></script>
+    <script type="text/javascript"
+            src="./js/ParticleSystem.js"></script>
+
+    <link
+      type="text/css"
+      rel='stylesheet'
+      href='./css/Canvas.css'></link>
+
+  </head>
+
+  <body>
+    <div id='main_content'>
+      <h1>Particle Effects</h1>
+      <div id='canvas_content'
+           class='content'
+           >
+        <canvas id='canvas'
+                width='400px'
+                height='300px'
+              />
+      </div>
+    </div>
+
+    <script type='text/javascript'>
+var dragging = false;
+
+var canvas = document.getElementById( "canvas" );
+var ctx    = canvas.getContext("2d");
+var pSys   = new ParticleSystem();
+pSys.init(  );
+
+setInterval( renderCanvas , 25 );
+
+function renderCanvas()
+{
+    ctx.clearRect(0, 0, 400, 300);
+    pSys.update();
+    pSys.renderParticles( ctx );
+}
+
+
+function emitParticles( event )
+{
+    if( dragging )
+    {
+        pSys.particleEmitter.location.x = event.clientX - canvas.offsetLeft;
+        pSys.particleEmitter.location.y = event.clientY - canvas.offsetTop;
+        pSys.particleEmitter.emit();
+    }
+}
+
+
+
+function init()
+{
+
+    canvas.addEventListener(
+        'mousedown',
+        function( event )
+        {
+            dragging=true;
+            pSys.particleEmitter.location.x = event.clientX - canvas.offsetLeft;
+            pSys.particleEmitter.location.y = event.clientY - canvas.offsetTop;
+        },
+        false
+    );
+
+    canvas.addEventListener(
+        'mouseup',
+        function( event ) { dragging=false; },
+        false
+    );
+
+    canvas.addEventListener(
+        'mousemove',
+        emitParticles,
+        false
+    );
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    init,
+    false
+);
+
+    </script>
+
+
+
+
+    <script type="text/javascript">
+var vector  =  new Vector( 10, 10 );
+var vectorN =  getNormalVector( vector );
+    </script>
+<!--
+    <div>
+      <p>Test: <script type="text/javascript">document.write( vectorN.x + ", " + vectorN.y )</script></p>
+    </div>
+-->
+
+    <h2>RESOURCES</h2>
+	<ol>
+	  <li>
+	    <a href="http://paraschopra.com/tutorials/particle-systems/">C++ Particle System IMPL</a>
+	  </li>
+	  <li>
+	    <a href="http://jarrodoverson.com/static/demos/particleSystem/#0,basic:Sv1%282000|1|0|0|1|E500,250:4,0:8:-1:3.14:4|F500,250:80%29">Javascript Demos</a>
+	  </li>
+	  <li>
+	    <a href="http://hernan.amiune.com/labs/particle-system/hello-world.html">Javascript Particle System...</a>
+	  </li>
+	  <li>
+	    <a href="http://scurker.com/blog/2010/06/particle-generator-using-html5s-canvas/">HTML 5 Particle effects</a>
+	  </li>
+	  <li>
+	    <a href="http://glacialflame.com/2010/06/building-a-particle-engine-with-canvas-part-1/">HTML 5 Canvas Tutorial (GOLD!)</a>
+	  </li>
+	  <li>
+	    <a href="http://www.mrspeaker.net/dev/parcycle/">Parcyle (parameterized PES with HTML5)</a>
+	  </li>
+	  <li>
+	    <a href="http://seb.ly/2010/11/javascript-2d-and-3d-particle-effects-at-full-frontal/">Conference Demos and links to code...</a>
+	  </li>
+	  <li>
+	    <a href="http://seb.ly/2011/02/html5-canvas-3d-particles-uniform-distribution/">Links to some bacic tuts for flash...</a>
+	  </li>
+	  <li>
+	    <a href="http://www.sitepoint.com/forums/showthread.php?837521-Good-Particle-Tutorial%28s%29-HTML5-Canvas-Javascript">Forum Posts with Links to ideas...</a>
+	  </li>
+	  <li>
+	    <a href="http://blog.datasingularity.com/?p=362">Great stuff on physics and forces (but in Java)</a>
+	  </li>
+	  <li>
+	    <a href="http://en.wikipedia.org/wiki/List_of_mathematical_symbols">Mathematical Symbols</a>
+	  </li>
+	  <li>
+	    <a href="http://en.wikipedia.org/wiki/Euclidean_vector">Euclidean vector</a>
+	  </li>
+	  <li>
+	    <a href="http://snipd.net/2d-and-3d-vector-normalization-and-angle-calculation-in-c">Beautiful Code: Vector Normalization</a>
+	  </li>
+	  <li>
+	    <a href="http://activeden.net/item/4-mouse-trails-bubbles-stars-hearts-and-snow/6327">NEXT STEPS. Do Mouse trails then apply to fairy...</a>
+	  </li>
+	</ol>
+
+  </body>
+</html>
+
+
+
+
